@@ -10,6 +10,7 @@ export class Polynomial {
 
     constructor(coefficients: Coefficients = {}) {
         this.coefficients = coefficients;
+        this.cleanSelf();
     }
 
     static monomial(coefficient: number, degree: number): Polynomial {
@@ -18,9 +19,14 @@ export class Polynomial {
         return new Polynomial(coef);
     }
 
+    static fromRoot(root: number): Polynomial {
+        return new Polynomial({ 0: -root, 1: 1 });
+    }
+
     private addScalar(scalar: number): Polynomial {
         const result = new Polynomial(this.coefficients);
         result.coefficients[0] += scalar;
+        result.cleanSelf();
         return result;
     }
 
@@ -32,6 +38,7 @@ export class Polynomial {
                 (result.coefficients[degree] || 0) + other.coefficients[degree];
         }
 
+        result.cleanSelf();
         return result;
     }
 
@@ -47,6 +54,7 @@ export class Polynomial {
         for (const degree in this.coefficients) {
             result.coefficients[degree] *= scalar;
         }
+        result.cleanSelf();
         return result;
     }
 
@@ -59,6 +67,7 @@ export class Polynomial {
                     this.coefficients[degree] * other.coefficients[otherDegree];
             }
         }
+        result.cleanSelf();
         return result;
     }
 
@@ -69,18 +78,33 @@ export class Polynomial {
         return this.multPolynomial(other);
     }
 
+    private cleanSelf(): void {
+        for (const [degree, coef] of Object.entries(this.coefficients)) {
+            if (coef == 0) {
+                delete this.coefficients[+degree];
+            }
+        }
+    }
+
     toString(mode: ParseMode = "unicode"): string {
         let terms: string = "";
         for (const [degree, coef] of Object.entries(
             this.coefficients
         ).reverse()) {
+            terms += terms.length && coef > 0 ? "+" : "";
             if (+degree > 0) {
                 if (mode == "unicode") {
-                    terms += `${coef == 1 ? "" : coef}x${toSuper(+degree)}`;
+                    terms += `${coef == 1 ? "" : coef}x${
+                        +degree > 1 ? toSuper(+degree) : ""
+                    }`;
                 } else if (mode == "html") {
-                    terms += `${coef == 1 ? "" : coef}x<sup>${degree}</sup>`;
+                    terms += `${coef == 1 ? "" : coef}x${
+                        +degree > 1 ? `<sup>${degree}</sup>` : ""
+                    }`;
                 } else if (mode == "latex") {
-                    terms += `${coef == 1 ? "" : coef}x^{${degree}}`;
+                    terms += `${coef == 1 ? "" : coef}x${
+                        +degree > 1 ? `^{${degree}}` : ""
+                    }`;
                 } else {
                     throw new Error("Invalid parse mode");
                 }

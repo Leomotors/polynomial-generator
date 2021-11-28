@@ -4,6 +4,10 @@
     "description": "Polynomial Generator",
     "main": "dist/index.js",
     "repository": "https://github.com/Leomotors/polynomial-generator",
+    "bugs": {
+        "url": "https://github.com/Leomotors/polynomial-generator/issues"
+    },
+    "homepage": "https://github.com/Leomotors/polynomial-generator#readme",
     "author": "Leomotors",
     "license": "MIT",
     "scripts": {
@@ -13,7 +17,16 @@
         "docs": "typedoc src/index.ts",
         "test": "mocha"
     },
+    "exports": {
+        ".": "./dist/index.js",
+        "./testing": "./dist/testing/index.js"
+    },
+    "keywords": [
+        "math",
+        "polynomial"
+    ],
     "devDependencies": {
+        "@types/node": "^16.11.10",
         "leomotors-automation": "^1.0.1",
         "mocha": "^9.1.3",
         "typedoc": "^0.22.10"

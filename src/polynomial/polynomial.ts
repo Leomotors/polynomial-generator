@@ -1,3 +1,5 @@
+import { Root } from "..";
+import { parseRoot } from "../root/parseUtils";
 import { toSuper } from "./parseUtils";
 
 export type Coefficients = { [degree: number]: number };
@@ -19,8 +21,17 @@ export class Polynomial {
         return new Polynomial(coef);
     }
 
-    static fromRoot(root: number): Polynomial {
-        return new Polynomial({ 0: -root, 1: 1 });
+    static fromRoot(root: string | Root): Polynomial {
+        if (typeof root === "string") {
+            root = parseRoot(root);
+        }
+
+        const parsedRoot = root as Root;
+
+        return new Polynomial({
+            0: -parsedRoot.numerator,
+            1: parsedRoot.denominator,
+        });
     }
 
     private addScalar(scalar: number): Polynomial {

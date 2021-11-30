@@ -26,7 +26,7 @@
         "polynomial"
     ],
     "devDependencies": {
-        "@types/node": "^16.11.10",
+        "@types/node": "^16.11.11",
         "leomotors-automation": "^1.0.1",
         "mocha": "^9.1.3",
         "typedoc": "^0.22.10"

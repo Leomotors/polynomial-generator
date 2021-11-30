@@ -21,9 +21,21 @@ describe("Polynomial Class", () => {
             equalTo(p, { 3: 2 });
         });
 
-        it("Construct from Root", () => {
-            const p = Polynomial.fromRoot(5);
-            equalTo(p, { 0: -5, 1: 1 });
+        describe("Construct from Root", () => {
+            it("Test Case 1 : -2/3", () => {
+                const p = Polynomial.fromRoot("-2/3");
+                equalTo(p, { 0: 2, 1: 3 });
+            });
+
+            it("Test Case 2: 6", () => {
+                const p = Polynomial.fromRoot("6");
+                equalTo(p, { 0: -6, 1: 1 });
+            });
+
+            it("Test Case 3: 6/9", () => {
+                const p = Polynomial.fromRoot("6/9");
+                equalTo(p, { 0: -2, 1: 3 });
+            });
         });
     });
 

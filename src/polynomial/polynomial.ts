@@ -5,10 +5,16 @@ import { toSuper } from "./parseUtils";
 export type Coefficients = { [degree: number]: number };
 type ParseMode = "unicode" | "html" | "latex";
 
-// * NOTE: Most of the code are written by GitHub Copilot ✨✨
+// * NOTE: Most of these codes are written by GitHub Copilot ✨✨
 
 export class Polynomial {
     coefficients: Coefficients;
+
+    get degree() {
+        return Math.max(
+            ...Object.keys(this.coefficients).map((n) => Number(n))
+        );
+    }
 
     constructor(coefficients: Coefficients = {}) {
         this.coefficients = coefficients;
@@ -22,16 +28,28 @@ export class Polynomial {
     }
 
     static fromRoot(root: string | Root): Polynomial {
-        if (typeof root === "string") {
+        if (typeof root == "string") {
             root = parseRoot(root);
         }
 
-        const parsedRoot = root as Root;
-
         return new Polynomial({
-            0: -parsedRoot.numerator,
-            1: parsedRoot.denominator,
+            0: -root.numerator,
+            1: root.denominator,
         });
+    }
+
+    static fromRoots(roots: string | Root[]): Polynomial {
+        if (typeof roots == "string") {
+            const strRoots = roots.split(" ");
+            roots = strRoots.map(parseRoot);
+        }
+
+        let res = Polynomial.fromRoot(roots[0]);
+
+        for (let i = 1; i < roots.length; i++) {
+            res = res.mult(Polynomial.fromRoot(roots[i]));
+        }
+        return res;
     }
 
     private addScalar(scalar: number): Polynomial {
@@ -124,5 +142,9 @@ export class Polynomial {
             }
         }
         return terms;
+    }
+
+    equals(other: Polynomial): boolean {
+        return this.toString() == other.toString();
     }
 }

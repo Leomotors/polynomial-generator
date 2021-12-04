@@ -13,3 +13,5 @@ export function equalTo(p: Polynomial, c: Coefficients): void {
         equal(p.coefficients[+degree], coef);
     }
 }
+
+export { BuildTime, Version } from "../config";

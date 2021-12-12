@@ -1,9 +1,12 @@
 // * npm test or yarn test
 
+import { assert } from "chai";
+
 import { Polynomial, Generator } from "../dist";
 import { equalTo, Version } from "../dist/testing";
+import { CheckRoot } from "../dist/scoring";
 
-import { assert } from "chai";
+import { parseRoot } from "../dist/root/parseUtils";
 
 if (Version != process.env.npm_package_version) {
     console.log(
@@ -236,6 +239,25 @@ describe("Generator Class", () => {
 
         it("toString() works", () => {
             assert.isOk(p.toString());
+        });
+    });
+});
+
+describe("Scoring Module", () => {
+    describe("CheckRoot Function", () => {
+        const polyA = [parseRoot("0"), parseRoot("-2")];
+
+        it('x²+2 <==> "0,-2"', () => {
+            assert.isTrue(CheckRoot(polyA, "0, -2"));
+        });
+        it('x²+2 <==> "0 -2"', () => {
+            assert.isTrue(CheckRoot(polyA, "0, -2"));
+        });
+        it('x²+2 <==> "0 2"', () => {
+            assert.isFalse(CheckRoot(polyA, "0 2"));
+        });
+        it('x²+2 <==> "0 0 -2"', () => {
+            assert.isFalse(CheckRoot(polyA, "0 0 -2"));
         });
     });
 });

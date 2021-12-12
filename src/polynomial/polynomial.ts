@@ -3,7 +3,7 @@ import { parseRoot } from "../root/parseUtils";
 import { toSuper } from "./parseUtils";
 
 export type Coefficients = { [degree: number]: number };
-type ParseMode = "unicode" | "html" | "latex";
+export type ParseMode = "unicode" | "html" | "latex";
 
 // * NOTE: Most of these codes are written by GitHub Copilot ✨✨
 

@@ -14,7 +14,7 @@
         "build": "yarn config:pkg && yarn clean && tsc -p .",
         "clean": "rm -rf dist/*",
         "config:pkg": "node node_modules/leomotors-automation/configPackage.js",
-        "docs": "typedoc src/index.ts",
+        "docs": "typedoc",
         "test": "ts-mocha test/test.spec.ts"
     },
     "exports": {

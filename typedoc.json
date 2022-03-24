@@ -3,5 +3,6 @@
         "./src/index.ts",
         "./src/testing/index.ts",
         "./src/scoring/index.ts"
-    ]
+    ],
+    "out": "typedoc-out"
 }

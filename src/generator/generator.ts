@@ -1,7 +1,7 @@
 import { Polynomial } from "../polynomial";
 import { Root } from "../root";
-import { BaseGenerator } from "./baseGenerator";
 
+import { BaseGenerator } from "./baseGenerator";
 import { randRange } from "./utils";
 
 export interface GeneratorConfig {

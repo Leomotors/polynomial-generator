@@ -1,5 +1,6 @@
 import { Root } from "..";
 import { parseRoot } from "../root/parseUtils";
+
 import { toSuper } from "./parseUtils";
 
 export type Coefficients = { [degree: number]: number };
@@ -116,7 +117,7 @@ export class Polynomial {
     }
 
     toString(mode: ParseMode = "unicode"): string {
-        let terms: string = "";
+        let terms = "";
         for (const [degree, coef] of Object.entries(
             this.coefficients
         ).reverse()) {

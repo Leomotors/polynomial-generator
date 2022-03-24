@@ -1,5 +1,6 @@
 import { Polynomial } from "../polynomial";
 import { Root } from "../root";
+
 import { BaseGenerator } from "./baseGenerator";
 import { Generator } from "./generator";
 

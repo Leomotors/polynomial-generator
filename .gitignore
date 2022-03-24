@@ -106,3 +106,7 @@ dist
 .vscode
 
 src/config.ts
+
+typedoc-out
+
+*.g.*

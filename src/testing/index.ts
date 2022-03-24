@@ -1,7 +1,7 @@
 // * Internal: Utilities for Testing
 import { equal } from "assert";
 
-import { Coefficients, Polynomial } from "..";
+import { Coefficients, Polynomial } from "../main";
 
 export function termsCount(p: Polynomial): number {
     return Object.keys(p.coefficients).length;
@@ -14,4 +14,4 @@ export function equalTo(p: Polynomial, c: Coefficients): void {
     }
 }
 
-export { BuildTime, Version } from "../config";
+export { BuildTime, Version } from "../config.g";

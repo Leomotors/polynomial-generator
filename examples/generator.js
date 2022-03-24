@@ -1,6 +1,9 @@
 // @ts-check
 
-const { Generator } = require("../dist");
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+const { Generator } = require("../dist/main");
 
 const generator = new Generator({
     numeratorRange: 10,

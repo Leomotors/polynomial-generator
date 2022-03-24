@@ -14,22 +14,22 @@
     "build-inner": "tsc && tsc -p tsconfig.bruh.json",
     "build": "yarn lm-config && yarn clean && yarn build-inner",
     "clean": "rimraf dist/*",
-    "docs": "typedoc",
+    "docs": "yarn lm-config && typedoc",
     "prepack": "yarn clean && yarn build && yarn lint && yarn test",
     "format": "prettier --write \"{src,tests}/**/*.ts\"",
     "lint": "eslint src && prettier --check \"{src,tests}/**/*.ts\"",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"resolveJsonModule\":true}' mocha -r ts-node/register --exit test/test.spec.ts",
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"resolveJsonModule\": true, \"strict\": false}' mocha -r ts-node/register --exit \"tests/**/*.spec.ts\"",
     "ncu": "ncu -u \"/^(?!.*chalk).*$/\""
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/main/index.js",
     "./scoring": "./dist/scoring/index.js",
     "./testing": "./dist/testing/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./dist/index.d.ts"
+        "./dist/main/index.d.ts"
       ],
       "scoring": [
         "./dist/scoring/index.d.ts"
@@ -44,7 +44,7 @@
     "polynomial"
   ],
   "devDependencies": {
-    "@leomotors/scripts": "^3.0.7",
+    "@leomotors/scripts": "^3.1.0",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/chai": "^4.3.0",
     "@types/mocha": "^9.1.0",

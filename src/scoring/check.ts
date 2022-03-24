@@ -1,5 +1,5 @@
-import { Root } from "../root";
-import { parseRoot } from "../root/parseUtils";
+import { Root } from "../main/root";
+import { parseRoot } from "../main/root/parseUtils";
 
 export function CheckRoot(key: Root[], ans: string): boolean {
     const answers = ans

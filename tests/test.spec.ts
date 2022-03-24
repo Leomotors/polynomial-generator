@@ -1,10 +1,10 @@
 // * npm test or yarn test
 import { assert } from "chai";
 
-import { Polynomial, Generator } from "../dist";
-import { parseRoot } from "../dist/root/parseUtils";
-import { CheckRoot } from "../dist/scoring";
-import { equalTo, Version } from "../dist/testing";
+import { Polynomial, Generator } from "../src/main";
+import { parseRoot } from "../src/main";
+import { CheckRoot } from "../src/scoring";
+import { equalTo, Version } from "../src/testing";
 
 if (Version != process.env.npm_package_version) {
     console.log(

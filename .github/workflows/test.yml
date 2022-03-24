@@ -5,7 +5,7 @@ on:
 
 jobs:
   main:
-    name: Mocha
+    name: Many Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -19,3 +19,5 @@ jobs:
         run: yarn build
       - name: Mocha Test
         run: yarn test
+      - name: Document Generation Test
+        run: yarn docs

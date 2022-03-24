@@ -1,6 +1,6 @@
 {
     "entryPoints": [
-        "./src/index.ts",
+        "./src/main/index.ts",
         "./src/testing/index.ts",
         "./src/scoring/index.ts"
     ],

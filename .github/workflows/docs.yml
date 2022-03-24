@@ -30,9 +30,6 @@ jobs:
       - name: Install Dependencies (Yarn)
         run: yarn install
 
-      - name: Run Config
-        run: yarn config:pkg
-
       - name: Build documentation
         run: yarn docs
 
@@ -40,4 +37,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: docs
+          folder: typedoc-out

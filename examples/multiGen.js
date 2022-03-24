@@ -1,6 +1,9 @@
 // @ts-check
 
-const { Generator, MultiGenerator } = require("../dist");
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+const { Generator, MultiGenerator } = require("../dist/main");
 
 const degree2 = new Generator({
     numeratorRange: 10,

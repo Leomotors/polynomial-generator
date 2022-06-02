@@ -1,6 +1,3 @@
-// * npm test or yarn test
-import { assert } from "chai";
-
 import { Polynomial, Generator } from "../src/main";
 import { parseRoot } from "../src/main";
 import { CheckRoot } from "../src/scoring";
@@ -17,7 +14,7 @@ describe("Polynomial Class", () => {
     describe("Class Construction", () => {
         it("Default Constructor", () => {
             const p = new Polynomial();
-            assert.isOk(p);
+            expect(p).toBeTruthy();
         });
 
         it("Constructor with Coefficients", () => {
@@ -98,60 +95,59 @@ describe("Polynomial Class", () => {
         describe("Mode: Unicode", () => {
             it("Test Case 1: x²+2", () => {
                 const p = new Polynomial({ 0: 2, 2: 1 });
-                assert.equal(p.toString(), "x²+2");
+                expect(p.toString()).toBe("x²+2");
             });
             it("Test Case 2: 4x-3", () => {
                 const p = new Polynomial({ 0: -3, 1: 4 });
-                assert.equal(p.toString(), "4x-3");
+                expect(p.toString()).toBe("4x-3");
             });
             it("Test Case 3: -4x¹²-3x⁹", () => {
                 const p = new Polynomial({ 12: -4, 9: -3 });
-                assert.equal(p.toString(), "-4x¹²-3x⁹");
+                expect(p.toString()).toBe("-4x¹²-3x⁹");
             });
             it("Test Case 4: x²+2x+1", () => {
                 const p = new Polynomial({ 1: 2, 2: 1, 0: 1 });
-                assert.equal(p.toString(), "x²+2x+1");
+                expect(p.toString()).toBe("x²+2x+1");
             });
         });
 
         describe("Mode: HTML", () => {
             it("Test Case 1: x²+2", () => {
                 const p = new Polynomial({ 0: 2, 2: 1 });
-                assert.equal(p.toString("html"), "x<sup>2</sup>+2");
+                expect(p.toString("html")).toBe("x<sup>2</sup>+2");
             });
             it("Test Case 2: 4x-3", () => {
                 const p = new Polynomial({ 0: -3, 1: 4 });
-                assert.equal(p.toString("html"), "4x-3");
+                expect(p.toString("html")).toBe("4x-3");
             });
             it("Test Case 3: -4x¹²-3x⁹", () => {
                 const p = new Polynomial({ 12: -4, 9: -3 });
-                assert.equal(
-                    p.toString("html"),
+                expect(p.toString("html")).toBe(
                     "-4x<sup>12</sup>-3x<sup>9</sup>"
                 );
             });
             it("Test Case 4: x²+2x+1", () => {
                 const p = new Polynomial({ 1: 2, 2: 1, 0: 1 });
-                assert.equal(p.toString("html"), "x<sup>2</sup>+2x+1");
+                expect(p.toString("html")).toBe("x<sup>2</sup>+2x+1");
             });
         });
 
         describe("Mode: Latex", () => {
             it("Test Case 1: x²+2", () => {
                 const p = new Polynomial({ 0: 2, 2: 1 });
-                assert.equal(p.toString("latex"), "x^{2}+2");
+                expect(p.toString("latex")).toBe("x^{2}+2");
             });
             it("Test Case 2: 4x-3", () => {
                 const p = new Polynomial({ 0: -3, 1: 4 });
-                assert.equal(p.toString("latex"), "4x-3");
+                expect(p.toString("latex")).toBe("4x-3");
             });
             it("Test Case 3: -4x¹²-3x⁹", () => {
                 const p = new Polynomial({ 12: -4, 9: -3 });
-                assert.equal(p.toString("latex"), "-4x^{12}-3x^{9}");
+                expect(p.toString("latex")).toBe("-4x^{12}-3x^{9}");
             });
             it("Test Case 4: x²+2x+1", () => {
                 const p = new Polynomial({ 1: 2, 2: 1, 0: 1 });
-                assert.equal(p.toString("latex"), "x^{2}+2x+1");
+                expect(p.toString("latex")).toBe("x^{2}+2x+1");
             });
         });
     });
@@ -169,7 +165,7 @@ describe("Generator Class", () => {
     });
 
     it("Constructed Successfully", () => {
-        assert.isOk(generator);
+        expect(generator).toBeTruthy();
     });
 
     describe("Able to Generate Polynomial", () => {
@@ -180,32 +176,29 @@ describe("Generator Class", () => {
         }
 
         it("Polynomial has degree as configged", () => {
-            for (const [p, roots] of polys) assert.equal(p.degree, degree);
-        }).timeout(3);
+            for (const [p, roots] of polys) expect(p.degree).toBe(degree);
+        });
 
         it("Polynomial has correct roots", () => {
             for (const [p, roots] of polys)
-                assert.equal(
-                    p.toString(),
+                expect(p.toString()).toBe(
                     Polynomial.fromRoots(roots).toString()
                 );
-        }).timeout(10);
+        });
 
         it("Has constant term in possible range", () => {
             for (const [p, roots] of polys)
-                assert.isAtMost(
-                    Math.abs(p.coefficients[0]) || 0,
+                expect(Math.abs(p.coefficients[0]) || 0).toBeLessThanOrEqual(
                     Math.pow(numeratorRange, degree)
                 );
-        }).timeout(3);
+        });
 
         it("Has higest degree term in possible range", () => {
             for (const [p, roots] of polys)
-                assert.isAtMost(
-                    Math.abs(p.coefficients[degree]) || 0,
-                    Math.pow(denominatorRange, degree)
-                );
-        }).timeout(3);
+                expect(
+                    Math.abs(p.coefficients[degree]) || 0
+                ).toBeLessThanOrEqual(Math.pow(denominatorRange, degree));
+        });
     });
 
     describe("Stress Test: Degree 100", () => {
@@ -218,25 +211,23 @@ describe("Generator Class", () => {
         const [p, roots] = supergen.generate();
 
         it("Generate Successfully", () => {
-            assert.isOk(p);
+            expect(p).toBeTruthy();
         });
 
         it("Has constant term in possible range", () => {
-            assert.isAtMost(
-                Math.abs(p.coefficients[0]) || 0,
+            expect(Math.abs(p.coefficients[0]) || 0).toBeLessThanOrEqual(
                 Math.pow(10, 100)
             );
         });
 
         it("Has highest degree term in possible range", () => {
-            assert.isAtMost(
-                Math.abs(p.coefficients[100]) || 0,
+            expect(Math.abs(p.coefficients[100]) || 0).toBeLessThanOrEqual(
                 Math.pow(10, 100)
             );
         });
 
         it("toString() works", () => {
-            assert.isOk(p.toString());
+            expect(p.toString()).toBeTruthy();
         });
     });
 });
@@ -246,16 +237,16 @@ describe("Scoring Module", () => {
         const polyA = [parseRoot("0"), parseRoot("-2")];
 
         it('x²+2 <==> "0,-2"', () => {
-            assert.isTrue(CheckRoot(polyA, "0, -2"));
+            expect(CheckRoot(polyA, "0, -2")).toBeTruthy();
         });
         it('x²+2 <==> "0 -2"', () => {
-            assert.isTrue(CheckRoot(polyA, "0, -2"));
+            expect(CheckRoot(polyA, "0, -2")).toBeTruthy();
         });
         it('x²+2 <==> "0 2"', () => {
-            assert.isFalse(CheckRoot(polyA, "0 2"));
+            expect(CheckRoot(polyA, "0 2")).toBeFalsy();
         });
         it('x²+2 <==> "0 0 -2"', () => {
-            assert.isFalse(CheckRoot(polyA, "0 0 -2"));
+            expect(CheckRoot(polyA, "0 0 -2")).toBeFalsy();
         });
     });
 });

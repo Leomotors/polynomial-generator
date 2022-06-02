@@ -21,15 +21,17 @@ export class MultiGenerator extends BaseGenerator {
             this.weights.push(generator.weight);
         }
         for (let index = 1; index < this.weights.length; index++) {
-            this.weights[index] += this.weights[index - 1];
+            this.weights[index] += this.weights[index - 1]!;
         }
-        this.totalWeight = this.weights[this.weights.length - 1];
+        this.totalWeight = this.weights[this.weights.length - 1]!;
     }
 
     override generate(): [Polynomial, Root[]] {
         const index = Math.floor(Math.random() * this.totalWeight);
         const generator =
-            this.generators[this.weights.findIndex((weight) => weight > index)];
+            this.generators[
+                this.weights.findIndex((weight) => weight > index)
+            ]!;
 
         return generator.generate();
     }

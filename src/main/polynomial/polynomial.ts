@@ -45,10 +45,12 @@ export class Polynomial {
             roots = strRoots.map(parseRoot);
         }
 
-        let res = Polynomial.fromRoot(roots[0]);
+        let res = Polynomial.fromRoot(
+            roots[0] ?? { numerator: 0, denominator: 1 }
+        );
 
         for (let i = 1; i < roots.length; i++) {
-            res = res.mult(Polynomial.fromRoot(roots[i]));
+            res = res.mult(Polynomial.fromRoot(roots[i]!));
         }
         return res;
     }
@@ -65,7 +67,8 @@ export class Polynomial {
 
         for (const degree in other.coefficients) {
             result.coefficients[degree] =
-                (result.coefficients[degree] || 0) + other.coefficients[degree];
+                (result.coefficients[degree] || 0) +
+                other.coefficients[degree]!;
         }
 
         result.cleanSelf();
@@ -94,7 +97,8 @@ export class Polynomial {
             for (const otherDegree in other.coefficients) {
                 result.coefficients[+degree + +otherDegree] =
                     (result.coefficients[+degree + +otherDegree] || 0) +
-                    this.coefficients[degree] * other.coefficients[otherDegree];
+                    this.coefficients[degree]! *
+                        other.coefficients[otherDegree]!;
             }
         }
         result.cleanSelf();

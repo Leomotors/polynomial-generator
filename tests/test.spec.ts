@@ -1,6 +1,6 @@
-import { Polynomial, Generator } from "../src/main";
+import { Polynomial } from "../src/main";
 import { parseRoot } from "../src/main";
-import { CheckRoot } from "../src/scoring";
+import { checkRoot } from "../src/scoring";
 import { equalTo, Version } from "../src/testing";
 
 if (Version != process.env.npm_package_version) {
@@ -153,100 +153,21 @@ describe("Polynomial Class", () => {
     });
 });
 
-describe("Generator Class", () => {
-    const numeratorRange = 20;
-    const denominatorRange = 10;
-    const degree = 4;
-
-    const generator = new Generator({
-        numeratorRange,
-        denominatorRange,
-        degree,
-    });
-
-    it("Constructed Successfully", () => {
-        expect(generator).toBeTruthy();
-    });
-
-    describe("Able to Generate Polynomial", () => {
-        const polys = [];
-
-        for (let i = 1; i <= 100; i++) {
-            polys.push(generator.generate());
-        }
-
-        it("Polynomial has degree as configged", () => {
-            for (const [p, roots] of polys) expect(p.degree).toBe(degree);
-        });
-
-        it("Polynomial has correct roots", () => {
-            for (const [p, roots] of polys)
-                expect(p.toString()).toBe(
-                    Polynomial.fromRoots(roots).toString()
-                );
-        });
-
-        it("Has constant term in possible range", () => {
-            for (const [p, roots] of polys)
-                expect(Math.abs(p.coefficients[0]) || 0).toBeLessThanOrEqual(
-                    Math.pow(numeratorRange, degree)
-                );
-        });
-
-        it("Has higest degree term in possible range", () => {
-            for (const [p, roots] of polys)
-                expect(
-                    Math.abs(p.coefficients[degree]) || 0
-                ).toBeLessThanOrEqual(Math.pow(denominatorRange, degree));
-        });
-    });
-
-    describe("Stress Test: Degree 100", () => {
-        const supergen = new Generator({
-            numeratorRange: 10,
-            denominatorRange: 10,
-            degree: 100,
-        });
-
-        const [p, roots] = supergen.generate();
-
-        it("Generate Successfully", () => {
-            expect(p).toBeTruthy();
-        });
-
-        it("Has constant term in possible range", () => {
-            expect(Math.abs(p.coefficients[0]) || 0).toBeLessThanOrEqual(
-                Math.pow(10, 100)
-            );
-        });
-
-        it("Has highest degree term in possible range", () => {
-            expect(Math.abs(p.coefficients[100]) || 0).toBeLessThanOrEqual(
-                Math.pow(10, 100)
-            );
-        });
-
-        it("toString() works", () => {
-            expect(p.toString()).toBeTruthy();
-        });
-    });
-});
-
 describe("Scoring Module", () => {
-    describe("CheckRoot Function", () => {
+    describe("checkRoot Function", () => {
         const polyA = [parseRoot("0"), parseRoot("-2")];
 
         it('x²+2 <==> "0,-2"', () => {
-            expect(CheckRoot(polyA, "0, -2")).toBeTruthy();
+            expect(checkRoot(polyA, "0, -2")).toBeTruthy();
         });
         it('x²+2 <==> "0 -2"', () => {
-            expect(CheckRoot(polyA, "0, -2")).toBeTruthy();
+            expect(checkRoot(polyA, "0, -2")).toBeTruthy();
         });
         it('x²+2 <==> "0 2"', () => {
-            expect(CheckRoot(polyA, "0 2")).toBeFalsy();
+            expect(checkRoot(polyA, "0 2")).toBeFalsy();
         });
         it('x²+2 <==> "0 0 -2"', () => {
-            expect(CheckRoot(polyA, "0 0 -2")).toBeFalsy();
+            expect(checkRoot(polyA, "0 0 -2")).toBeFalsy();
         });
     });
 });

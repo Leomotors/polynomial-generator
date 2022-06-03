@@ -1,7 +1,7 @@
 import { Root } from "../main/root";
 import { parseRoot } from "../main/root/parseUtils";
 
-export function CheckRoot(key: Root[], ans: string): boolean {
+export function checkRoot(key: Root[], ans: string) {
     const answers = ans
         .replace(/,/g, " ")
         .split(" ")

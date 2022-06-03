@@ -1,6 +1,6 @@
 {
   "name": "polynomial-generator",
-  "version": "1.0.0-pre.2",
+  "version": "1.0.0-pre.3",
   "description": "Polynomial Generator",
   "main": "dist/index.js",
   "repository": "https://github.com/Leomotors/polynomial-generator",

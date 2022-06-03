@@ -12,9 +12,7 @@ export class Polynomial {
     coefficients: Coefficients;
 
     get degree() {
-        return Math.max(
-            ...Object.keys(this.coefficients).map((n) => Number(n))
-        );
+        return Math.max(...Object.keys(this.coefficients).map((n) => +n));
     }
 
     constructor(coefficients: Coefficients = {}) {

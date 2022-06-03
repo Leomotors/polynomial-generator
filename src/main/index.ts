@@ -1,3 +1,3 @@
-export * from "./generator";
+export * from "./generate";
 export * from "./polynomial";
 export * from "./root";

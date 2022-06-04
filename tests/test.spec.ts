@@ -157,8 +157,8 @@ describe("Scoring Module", () => {
     describe("checkRoot Function", () => {
         const polyA = [parseRoot("0"), parseRoot("-2")];
 
-        it('x²+2 <==> "0,-2"', () => {
-            expect(checkRoot(polyA, "0, -2")).toBeTruthy();
+        it('x²+2 <==> "0,-2 ,"', () => {
+            expect(checkRoot(polyA, "0,-2 ,")).toBeTruthy();
         });
         it('x²+2 <==> "0 -2"', () => {
             expect(checkRoot(polyA, "0, -2")).toBeTruthy();
@@ -167,7 +167,22 @@ describe("Scoring Module", () => {
             expect(checkRoot(polyA, "0 2")).toBeFalsy();
         });
         it('x²+2 <==> "0 0 -2"', () => {
-            expect(checkRoot(polyA, "0 0 -2")).toBeFalsy();
+            expect(checkRoot(polyA, "0 0 -2")).toBeTruthy();
+        });
+
+        const polyB = [parseRoot("3"), parseRoot("3")];
+
+        it('x²-6x+9 <==> "3"', () => {
+            expect(checkRoot(polyB, "3")).toBeTruthy();
+        });
+        it('x²-6x+9 <==> "3 3 "', () => {
+            expect(checkRoot(polyB, "3 3 ")).toBeTruthy();
+        });
+        it('x²-6x+9 <==> "3 3 3"', () => {
+            expect(checkRoot(polyB, "3 3 3")).toBeTruthy();
+        });
+        it('x²-6x+9 <==> "3 -3"', () => {
+            expect(checkRoot(polyB, "3 -3")).toBeFalsy();
         });
     });
 });

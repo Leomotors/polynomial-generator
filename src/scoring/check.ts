@@ -2,21 +2,24 @@ import { Root } from "../main/root";
 import { parseRoot } from "../main/root/parseUtils";
 
 export function checkRoot(key: Root[], ans: string) {
-    const answers = ans
-        .replace(/,/g, " ")
-        .split(" ")
-        .filter((x) => x.length > 0);
+    const answers = [
+        ...new Set(
+            ans
+                .replace(/,/g, " ")
+                .split(" ")
+                .filter((x) => x.length > 0)
+        ),
+    ].map((x) => JSON.stringify(parseRoot(x)));
 
-    if (answers.length != key.length) return false;
+    const keySetStr = [...new Set(key.map((k) => JSON.stringify(k)))];
 
-    const answersRoot = answers.map((x) => parseRoot(x));
+    if (answers.length != keySetStr.length) return false;
 
-    key.sort();
-    answersRoot.sort();
+    keySetStr.sort();
+    answers.sort();
 
-    for (let index = 0; index < key.length; index++) {
-        if (JSON.stringify(key[index]) != JSON.stringify(answersRoot[index]))
-            return false;
+    for (let index = 0; index < keySetStr.length; index++) {
+        if (keySetStr[index] != answers[index]) return false;
     }
 
     return true;

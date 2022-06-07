@@ -1,5 +1,4 @@
-import { Polynomial } from "../src/main";
-import { parseRoot } from "../src/main";
+import { Polynomial, parseRoot, generate, generateMany } from "../src/main";
 import { checkRoot } from "../src/scoring";
 import { equalTo, Version } from "../src/testing";
 
@@ -184,5 +183,23 @@ describe("Scoring Module", () => {
         it('x²-6x+9 <==> "3 -3"', () => {
             expect(checkRoot(polyB, "3 -3")).toBeFalsy();
         });
+    });
+});
+
+describe("Test Generator", () => {
+    const option = {
+        numeratorRange: 10,
+        denominatorRange: 1,
+        degree: 2,
+    };
+
+    it("generate works", () => {
+        const [poly, r] = generate(option);
+        expect(poly.toString("latex")).toMatch(/^x\^\{2\}/);
+    });
+
+    it("generateMany works", () => {
+        const polys = generateMany(option, 10);
+        expect(polys.length).toBe(10);
     });
 });

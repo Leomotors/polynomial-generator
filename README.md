@@ -8,29 +8,26 @@ Library to generate random polynomial
 
 Can be use to generate problems to solve
 
-Will be used in my upcoming projects
-
-!!! _work in progress_ !!!
-
 ## 📃 Example
 
 ```js
-// require
-const { Generator } = require("polynomial-generator");
+import { generate, generateMany } from "polynomial-generator";
 
-// import
-import { Generator } from "polynomial-generator";
-
-const generator = new Generator({
+const option = {
     numeratorRange: 10,
-    denominatorRange: 5,
+    denominatorRange: 2,
     degree: 2,
-});
+};
 
-const [polynomial, roots] = generator.generate();
+// generate single
+const [polynomial, roots] = generate(option);
 
-console.log(polynomial.toString());
-// outputs: 2x²+14x-36
+console.log(polynomial.toString());        // 2x²+15x-8
+console.log(polynomial.toString("html"));  // 2x<sup>2</sup>+15x-8
+console.log(polynomial.toString("latex")); // 2x^{2}+15x-8
+
+// generate many
+const polynomials = generateMany(option, 100);
 ```
 
 ## 📚 Documents
